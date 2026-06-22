@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Galaxy Love</title>
+
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
+}
+
+body{
+height:100vh;
+overflow:hidden;
+background:linear-gradient(
+180deg,
+#030712,
+#111827,
+#1e1b4b
+);
+display:flex;
+justify-content:center;
+align-items:center;
+color:white;
+}
+
+.stars{
+position:fixed;
+width:100%;
+height:100%;
+top:0;
+left:0;
+z-index:0;
+}
+
+.star{
+position:absolute;
+background:white;
+border-radius:50%;
+animation:twinkle 2s infinite;
+}
+
+@keyframes twinkle{
+50%{
+opacity:.2;
+}
+}
+
+.container{
+position:relative;
+z-index:2;
+text-align:center;
+padding:20px;
+max-width:700px;
+}
+
+.photo{
+width:220px;
+height:220px;
+object-fit:cover;
+border-radius:50%;
+border:4px solid white;
+box-shadow:
+0 0 20px #ff66c4,
+0 0 50px #8b5cf6,
+0 0 90px #3b82f6;
+animation:float 4s ease-in-out infinite;
+}
+
+@keyframes float{
+50%{
+transform:translateY(-15px);
+}
+}
+
+h1{
+margin-top:20px;
+font-size:2.5rem;
+}
+
+.typing{
+margin-top:15px;
+font-size:1.2rem;
+line-height:1.7;
+min-height:120px;
+}
+
+button{
+margin-top:20px;
+padding:12px 30px;
+border:none;
+border-radius:30px;
+background:#ff66c4;
+color:white;
+cursor:pointer;
+font-size:1rem;
+}
+
+.hearts{
+position:fixed;
+width:100%;
+height:100%;
+pointer-events:none;
+z-index:1;
+}
+
+.heart{
+position:absolute;
+font-size:20px;
+animation:fly 6s linear forwards;
+}
+
+@keyframes fly{
+from{
+transform:translateY(0);
+opacity:1;
+}
+to{
+transform:translateY(-100vh);
+opacity:0;
+}
+}
+</style>
+</head>
+<body>
+
+<div class="stars" id="stars"></div>
+<div class="hearts" id="hearts"></div>
+
+<div class="container">
+
+<img src="photo.jpg" class="photo">
+
+<h1>💜 For You 💜</h1>
+
+<div class="typing" id="typing"></div>
+
+<button onclick="playMusic()">
+Klik Aku ❤️
+</button>
+
+</div>
+
+<audio id="music" loop>
+<source src="music.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+
+const text =
+"Di antara miliaran bintang yang ada di galaksi ini, aku tetap memilih kamu. Terima kasih karena selalu hadir, mendengarkan, dan menjadi bagian dari cerita terindah dalam hidupku. ❤️";
+
+let i = 0;
+
+function typeWriter(){
+if(i < text.length){
+document.getElementById("typing").innerHTML += text.charAt(i);
+i++;
+setTimeout(typeWriter,40);
+}
+}
+
+typeWriter();
+
+const stars = document.getElementById("stars");
+
+for(let i=0;i<300;i++){
+
+let star = document.createElement("div");
+
+star.className="star";
+
+let size=Math.random()*3;
+
+star.style.width=size+"px";
+star.style.height=size+"px";
+
+star.style.left=Math.random()*100+"%";
+star.style.top=Math.random()*100+"%";
+
+star.style.animationDelay=Math.random()*3+"s";
+
+stars.appendChild(star);
+}
+
+const hearts=document.getElementById("hearts");
+
+setInterval(()=>{
+
+let heart=document.createElement("div");
+
+heart.className="heart";
+heart.innerHTML="❤️";
+
+heart.style.left=Math.random()*100+"%";
+
+heart.style.bottom="-20px";
+
+heart.style.fontSize=
+(Math.random()*20+15)+"px";
+
+hearts.appendChild(heart);
+
+setTimeout(()=>{
+heart.remove();
+},6000);
+
+},500);
+
+function playMusic(){
+
+document.getElementById("music").play();
+
+}
+</script>
+
+</body>
+</html>
